@@ -17,7 +17,8 @@ from .graph_heap import GraphHeap
 def normalize_graph(graph):
     min_float = get_min_float()
     
-    normalization_function = lambda weight: math.log(100 - weight + min_float)
+    # normalization_function = lambda weight: math.log(100 - weight + min_float)
+    normalization_function = lambda weight: 100 - weight
     
     new_graph = graph.duplicate()
     new_graph.normalize_graph_weights(normalization_function)
@@ -42,9 +43,7 @@ def dijkstra_algorithm(graph, source_vertex):
 
     while not graph_heap.is_empty():
         actual_vertex = graph_heap.pop_vertex()
-
-        print("actual")
-        print(actual_vertex)
+        
         for neighbor in graph.get_node_neighbors(actual_vertex):
             alternative_distance = graph_heap.get_distance(actual_vertex) +\
                 graph.get_distance_between(actual_vertex, neighbor)
@@ -54,3 +53,23 @@ def dijkstra_algorithm(graph, source_vertex):
                 previous[neighbor] = actual_vertex
 
     return previous
+
+def calculate_betweenness(graph):
+    betweeness = {
+        node: 0
+        for node in graph.get_nodes()
+    }
+
+    for node in graph.get_nodes():
+        distances = shortest_path(graph, node)
+        update_betweenness_distances(distances, betweeness)
+
+    return betweeness        
+
+def update_betweenness_distances(distances, betweeness):
+    for destination_node in distances.keys():
+        current_node = destination_node
+
+        while current_node != None:
+            betweeness[current_node] += 1
+            current_node = distances[current_node] # Go to previous node

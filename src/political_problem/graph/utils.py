@@ -6,7 +6,6 @@ def read_graph_from_file(file_path):
     graph = Graph()
     
     for line in file_pointer:
-        print(line)
         
         if line_is_not_valid(line):
             break

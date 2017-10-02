@@ -14,20 +14,17 @@ class Graph:
         self.nodes[node2].add_neighbor(node1, weight)
 
     def normalize_graph_weights(self, normalization_function):
-        self.nodes = {
-            node_id: node_object.normalize_weights(normalization_function)
-            for node_id, node_object in self.nodes.items()
-        }
+        for node in self.nodes.values():
+            node.normalize_weights(normalization_function)
 
+    def get_nodes(self):
+        return list(self.nodes.keys())
+        
     def duplicate(self):
         from copy import deepcopy
         return deepcopy(self)
 
-    def get_nodes(self):
-        return list(self.nodes.keys())
-
     def get_node_neighbors(self, node_id):
-        print(self.nodes)
         return self.nodes[node_id].get_neighbors_as_list()
 
     def get_distance_between(self, node_id1, node_id2):

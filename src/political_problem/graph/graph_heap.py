@@ -19,7 +19,6 @@ class GraphHeap():
             self.key_value_pair[node_id] = distance
 
     def update_vertex(self, node_id, distance):
-        print(self.key_value_pair)
         old_distance = self.key_value_pair[node_id]
         self.key_value_pair[node_id] = distance
 
