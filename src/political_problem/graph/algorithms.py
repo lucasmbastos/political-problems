@@ -1,7 +1,7 @@
-import heapq
 import math
 
 from .graph import Graph
+from .graph_heap import GraphHeap
 
 # The problem will be solved using betweenness algorithm that uses shortest path
 # algorithm. In order to use shortest path, every edge should be converted as
@@ -26,17 +26,31 @@ def normalize_graph(graph):
 
 def get_min_float():
     from sys import float_info
-    return flaot_info.min
+    return float_info.min
 
-def shortest_path(graph, start_vertice, algorithm='dijkstra'):
-    if algorithm = 'dijkstra':
-        return dijkstra_algorithm(graph, start_vertice)
+def shortest_path(graph, source_vertex, algorithm='dijkstra'):
+    if algorithm == 'dijkstra':
+        return dijkstra_algorithm(graph, source_vertex)
 
-def dijkstra_algorithm(graph, start_vertice):
-    pass #TODO
+def dijkstra_algorithm(graph, source_vertex):
+    nodes = graph.get_nodes()
 
-def get_distance(distance_predecessor_tuple):
-    return distance_predecessor_tuple[0]
+    previous = {source_vertex: None}
 
-def get_predecessor(distance_predecessor_tuple)
-    return distance_predecessor_tuple[1]
+    graph_heap = GraphHeap(nodes)
+    graph_heap.update_vertex(source_vertex, 0)
+
+    while not graph_heap.is_empty():
+        actual_vertex = graph_heap.pop_vertex()
+
+        print("actual")
+        print(actual_vertex)
+        for neighbor in graph.get_node_neighbors(actual_vertex):
+            alternative_distance = graph_heap.get_distance(actual_vertex) +\
+                graph.get_distance_between(actual_vertex, neighbor)
+
+            if alternative_distance < graph_heap.get_distance(neighbor):
+                graph_heap.update_vertex(neighbor, alternative_distance)
+                previous[neighbor] = actual_vertex
+
+    return previous

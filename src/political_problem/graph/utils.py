@@ -6,21 +6,21 @@ def read_graph_from_file(file_path):
     graph = Graph()
     
     for line in file_pointer:
+        print(line)
         
-        if not line_is_valid(line):
+        if line_is_not_valid(line):
             break
 
-        node1, node2, node3 = parse_line(line)
+        node1, node2, weight = parse_line(line)
 
         graph.add_node(node1)
         graph.add_node(node2)
         graph.link_nodes(node1, node2, weight)
 
     file_pointer.close()
-
     return graph
 
-def line_is_valid(line):
+def line_is_not_valid(line):
     return line == '0,0,0\n'
 
 def parse_line(line):

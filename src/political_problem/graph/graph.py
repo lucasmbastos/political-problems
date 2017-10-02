@@ -25,3 +25,10 @@ class Graph:
 
     def get_nodes(self):
         return list(self.nodes.keys())
+
+    def get_node_neighbors(self, node_id):
+        print(self.nodes)
+        return self.nodes[node_id].get_neighbors_as_list()
+
+    def get_distance_between(self, node_id1, node_id2):
+        return self.nodes[node_id1].get_weight(node_id2)

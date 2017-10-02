@@ -20,5 +20,8 @@ class Node():
     def normalize_weights(self, normalization_function):
         self.add_neighbors = {
             neighbor: normalization_function(weight)
-            for neighbor, weight in self.add_neighbors.items()
+            for neighbor, weight in self.neighbors.items()
         }
+
+    def get_weight(self, node_id):
+        return self.neighbors[node_id]
