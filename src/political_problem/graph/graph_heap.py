@@ -23,7 +23,17 @@ class GraphHeap():
         self.key_value_pair[node_id] = distance
 
         old_distance_position_in_key = self.key_heap.index(old_distance)
-        del self.key_heap[old_distance_position_in_key]
+        
+        # The following procedure was adapted from StackOverflow
+        # https://stackoverflow.com/questions/10162679/python-delete-element-from-heap
+        # It was necessary to make python heap update in O(log(v))
+
+        self.key_heap[old_distance_position_in_key] = self.key_heap[-1]
+        self.key_heap.pop()
+
+        if old_distance_position_in_key < len(self.key_heap): 
+            heapq._siftup(self.key_heap, old_distance_position_in_key)
+            heapq._siftdown(self.key_heap, 0, old_distance_position_in_key)
 
         heapq.heappush(self.key_heap, distance)
 

@@ -11,7 +11,7 @@ normalized_graph = normalize_graph(graph)
 
 betweenness = calculate_betweenness(normalized_graph)
 
-# Sorting
+# Print to file
 output_fp = open(sys.argv[2], 'w')
-print_output(vertex_betweenness_dict, output_fp)
+print_output(betweenness, output_fp)
 output_fp.close()
